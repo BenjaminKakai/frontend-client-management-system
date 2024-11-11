@@ -156,10 +156,33 @@ const ClientForm = ({ goToHome }) => {
 
   if (isSubmitted) {
     return (
-      <div>
-        <p>Client successfully added!</p>
-        <button onClick={handleAddAnotherClient}>Add Another Client</button>
-        <button onClick={goToHome}>Go Back Home</button>
+      <div style={{ 
+        textAlign: 'center',
+        width: '100%',
+        padding: '20px',
+        maxWidth: '600px',
+        margin: '0 auto'
+      }}>
+        <p style={{ marginBottom: '20px' }}>Client successfully added!</p>
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          gap: '10px',
+          flexWrap: 'wrap' 
+        }}>
+          <button 
+            onClick={handleAddAnotherClient}
+            style={{ padding: '8px 16px' }}
+          >
+            Add Another Client
+          </button>
+          <button 
+            onClick={goToHome}
+            style={{ padding: '8px 16px' }}
+          >
+            Go Back Home
+          </button>
+        </div>
       </div>
     );
   }

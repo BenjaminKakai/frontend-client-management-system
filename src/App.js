@@ -158,11 +158,20 @@ const App = () => {
             isLoggedIn={isLoggedIn}
           />
           <div className="main-content">
-            <div className="centered-text" style={{ marginTop: '100px', color: 'orange' }}>
+            <div className="centered-text" style={{ 
+              marginTop: '100px', 
+              color: 'orange',
+              width: '100%',
+              textAlign: 'center' 
+            }}>
               <h1 className="rotate-text">Sales Department</h1>
             </div>
             {showOverlay && (
-              <div className="overlay">
+              <div className="overlay" style={{
+                textAlign: 'center',
+                width: '100%',
+                padding: '20px'
+              }}>
                 <h2>Welcome to Sales Department</h2>
                 <p>Your one-stop solution for client management</p>
               </div>
