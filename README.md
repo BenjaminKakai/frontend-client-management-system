@@ -1,70 +1,166 @@
-# Getting Started with Create React App
+# Client Management System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A comprehensive sales department management solution built with Node.js, React.js, and PostgreSQL. This system helps track clients, manage deals, and organize client information efficiently.
 
-## Available Scripts
+[Watch Demo Video](https://youtu.be/6O5QH9wGlCc)
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+### Client Management
+- Add new clients with detailed information
+- Remove existing clients
+- View complete client list
+- Filter clients by quality and status
+- Track client documentation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Client Categories
+- High Quality Clients view
+- Finalized Deals tracking
+- Pending Clients management
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Authentication & Security
+- JWT-based authentication
+- Secure document upload and management
+- Protected API endpoints
 
-### `npm test`
+## Tech Stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Backend
+- Node.js
+- Express.js
+- PostgreSQL
+- JWT for authentication
+- Multer for file uploads
+- CORS enabled
+- bcrypt for password hashing
 
-### `npm run build`
+### Frontend
+- React.js
+- Axios for API calls
+- React Hooks
+- Error Boundary implementation
+- Responsive design
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Prerequisites
+- Node.js (v14 or higher)
+- PostgreSQL (v12 or higher)
+- npm or yarn
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Backend Setup
+1. Clone the repository
+```bash
+git clone https://github.com/BenjaminKakai/frontend-client-management-system.git
+```
 
-### `npm run eject`
+2. Install dependencies
+```bash
+cd server
+npm install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3. Set up environment variables
+Create a `.env` file in the server directory:
+```env
+PORT=3000
+DATABASE_URL_POOLED=your_postgresql_connection_string
+JWT_SECRET=your_jwt_secret
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. Start the server
+```bash
+npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Frontend Setup
+1. Navigate to the client directory
+```bash
+cd client
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+2. Install dependencies
+```bash
+npm install
+```
 
-## Learn More
+3. Start the React application
+```bash
+npm start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The application will run on `http://localhost:3001`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Database Schema
 
-### Code Splitting
+### Clients Table
+```sql
+CREATE TABLE clients (
+    id SERIAL PRIMARY KEY,
+    project VARCHAR(255),
+    bedrooms INTEGER,
+    budget DECIMAL,
+    schedule VARCHAR(255),
+    email VARCHAR(255),
+    fullname VARCHAR(255),
+    phone VARCHAR(255),
+    quality VARCHAR(50),
+    conversation_status VARCHAR(50)
+);
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Payment Details Table
+```sql
+CREATE TABLE payment_details (
+    id SERIAL PRIMARY KEY,
+    client_id INTEGER REFERENCES clients(id),
+    amount_paid DECIMAL,
+    payment_duration VARCHAR(255),
+    total_amount DECIMAL,
+    balance DECIMAL,
+    payment_date TIMESTAMP
+);
+```
 
-### Analyzing the Bundle Size
+### Client Documents Table
+```sql
+CREATE TABLE client_documents (
+    id SERIAL PRIMARY KEY,
+    client_id INTEGER REFERENCES clients(id),
+    document_name VARCHAR(255),
+    document_path VARCHAR(255)
+);
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## API Endpoints
 
-### Making a Progressive Web App
+### Authentication
+- POST `/login` - User authentication
+- POST `/refresh-token` - Refresh JWT token
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Client Management
+- GET `/clients` - Retrieve all clients
+- POST `/clients` - Add new client
+- DELETE `/clients/:id` - Remove client
+- GET `/clients/finalized` - Get finalized deals
+- GET `/clients/high-quality` - Get high-quality clients
+- GET `/clients/pending` - Get pending clients
 
-### Advanced Configuration
+### Document Management
+- POST `/clients/:id/documents` - Upload client documents
+- GET `/clients/:id/documents` - Retrieve client documents
+- DELETE `/documents/:id` - Delete document
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Contact Information
 
-### Deployment
+**Benjamin Kakai.**
+- Email: Benjaminkakaimasai@gmail.com
+- Phone: 0757661033
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Contributing
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
