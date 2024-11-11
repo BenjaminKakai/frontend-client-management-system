@@ -158,23 +158,22 @@ const ClientList = ({ onClientRemoved }) => {
 
   const pasteClientName = async (client, status) => {
     try {
-      setLoading(true);
-      const updatedStatus = status === 'Finalized Deal' ? 'Finalized Deal' : 'Pending';
-      await updateClientStatus(client.id, updatedStatus);
-      setStatusUpdateSuccess(`Successfully updated ${client.fullname}'s status to ${updatedStatus}`);
-      // Update the client's status in the filteredClients array
-      setFilteredClients(prevClients =>
-        prevClients.map(c =>
-          c.id === client.id ? { ...c, conversation_status: updatedStatus } : c
-        )
-      );
+        setLoading(true);
+        await updateClientStatus(client.id, status);
+        setStatusUpdateSuccess(`Successfully updated ${client.fullname}'s status to ${status}`);
+        
+        setFilteredClients(prevClients =>
+            prevClients.map(c =>
+                c.id === client.id ? { ...c, conversation_status: status } : c
+            )
+        );
     } catch (error) {
-      console.error('Error updating client status:', error);
-      setError(`Error updating client status: ${error.message}`);
+        console.error('Error updating client status:', error);
+        setError(`Error updating client status: ${error.message}`);
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
-  };
+};
 
   const toggleButtons = (client) => {
     setExpandedClient(expandedClient === client.id ? null : client.id);
